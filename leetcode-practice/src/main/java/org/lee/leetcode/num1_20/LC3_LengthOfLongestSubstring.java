@@ -2,7 +2,7 @@ package org.lee.leetcode.num1_20;
 
 import java.util.HashMap;
 
-public class LC1_LengthOfLongestSubstring {
+public class LC3_LengthOfLongestSubstring {
 
     public static int lengthOfLongestSubstring(String s) {
         int maxLen = 0;
