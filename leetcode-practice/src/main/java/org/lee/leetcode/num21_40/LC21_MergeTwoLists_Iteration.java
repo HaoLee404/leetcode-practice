@@ -11,14 +11,12 @@ public class LC21_MergeTwoLists_Iteration {
             return list1;
         ListNode hair = new ListNode(), curr1 = list1, curr2 = list2, list = hair;
         while (curr1 != null && curr2 != null) {
-            ListNode next1 = curr1.next;
-            ListNode next2 = curr2.next;
             if (curr1.val > curr2.val) {
                 list.next = curr2;
-                curr2 = next2;
+                curr2 = curr2.next;
             } else {
                 list.next = curr1;
-                curr1 = next1;
+                curr1 = curr1.next;
             }
             list = list.next;
         }
@@ -26,6 +24,7 @@ public class LC21_MergeTwoLists_Iteration {
             list.next = curr1;
         if (curr2 != null)
             list.next = curr2;
+
         return hair.next;
     }
 
