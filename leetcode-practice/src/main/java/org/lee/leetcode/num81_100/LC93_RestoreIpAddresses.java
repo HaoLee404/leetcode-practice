@@ -9,11 +9,10 @@ public class LC93_RestoreIpAddresses {
 
     List<String> ans = null;
 
-    int[] segments = null;
+    int[] segments = new int[SEG_COUNT];
 
     public List<String> restoreIpAddresses(String s) {
         ans = new LinkedList<>();
-        segments = new int[SEG_COUNT];
         dfs(s, 0, 0);
         return ans;
     }
@@ -37,8 +36,7 @@ public class LC93_RestoreIpAddresses {
             dfs(s, segId + 1, start + 1);
             return;
         }
-        int addr = 0;
-        for (int end = start; end < len; end++) {
+        for (int end = start, addr = 0; end < len; end++) {
             addr = addr * 10 + (s.charAt(end) - '0');
             if (addr <= 255) {
                 segments[segId] = addr;
