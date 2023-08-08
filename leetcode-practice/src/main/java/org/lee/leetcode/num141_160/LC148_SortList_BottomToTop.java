@@ -4,29 +4,32 @@ import org.lee.leetcode.common.ListNode;
 
 public class LC148_SortList_BottomToTop {
 
-    // 2 1 4 3 5
     public static ListNode sortList(ListNode head) {
         if (head == null)
             return null;
         int len = length(head);
         ListNode hair = new ListNode();
         hair.next = head;
-        for (int size = 1; size < len; size = size << 1) {
-            ListNode list1 = hair.next, list2 = null, curr = list1;
-            int count = 1, doubleSize = size << 1;
+        for (int size = 1; size < len; size <<= 1) {
+            ListNode prev = hair, curr = hair.next;
             while (curr != null) {
-                if (count++ == size) {
-                    ListNode next = curr.next;
-                    list2 = next;
-                    curr.next = null;
-                    curr = next;
-                } else if (count++ == doubleSize) {
-                    ListNode next = curr.next;
-                    curr.next = null;
-                    curr = next;
-                    merge2Lists(list1, list2);
-                } else
+                ListNode list1 = curr;
+                for (int i = 1; i < size && curr.next != null; i++)
                     curr = curr.next;
+                ListNode list2 = curr.next;
+                curr.next = null;
+                curr = list2;
+                for (int i = 1; i < size && curr != null && curr.next != null; i++)
+                    curr = curr.next;
+                ListNode next = null;
+                if (curr != null) {
+                    next = curr.next;
+                    curr.next = null;
+                }
+                prev.next = merge2Lists(list1, list2);
+                while (prev.next != null)
+                    prev = prev.next;
+                curr = next;
             }
         }
         return hair.next;
@@ -80,8 +83,32 @@ public class LC148_SortList_BottomToTop {
         ListNode.print(head);
     }
 
+    public static void testCase1() {
+        int[] nums = {1};
+        ListNode head = ListNode.init(nums);
+        head = sortList(head);
+        ListNode.print(head);
+    }
+
+    public static void testCase2() {
+        int[] nums = {1,4,3,2};
+        ListNode head = ListNode.init(nums);
+        head = sortList(head);
+        ListNode.print(head);
+    }
+
+    public static void testCase3() {
+        int[] nums = {};
+        ListNode head = ListNode.init(nums);
+        head = sortList(head);
+        ListNode.print(head);
+    }
+
     public static void main(String[] args) {
         testCase();
+        testCase1();
+        testCase2();
+        testCase3();
     }
 
 }
