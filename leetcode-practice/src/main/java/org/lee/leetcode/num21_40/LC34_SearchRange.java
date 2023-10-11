@@ -16,7 +16,7 @@ public class LC34_SearchRange {
                     res[1] = mid;
                 if (res[0] != -1 && res[1] != -1)
                     break;
-                else if (res[0] != -1 && res[1] == -1)
+                else if (res[0] != -1)
                     lo = mid + 1;
                 else
                     hi = mid - 1; // 有关联
